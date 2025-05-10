@@ -28,7 +28,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.compose.rally.ui.accounts.AccountsScreen
+import com.example.compose.rally.ui.bills.BillsScreen
 import com.example.compose.rally.ui.components.RallyTabRow
+import com.example.compose.rally.ui.overview.OverviewScreen
 import com.example.compose.rally.ui.theme.RallyTheme
 
 /**
@@ -47,18 +54,48 @@ class RallyActivity : ComponentActivity() {
 @Composable
 fun RallyApp() {
     RallyTheme {
-        var currentScreen: RallyDestination by remember { mutableStateOf(Overview) }
+        val navController = rememberNavController()
+        val backStack by navController.currentBackStackEntryAsState()
+        val currentDestination = backStack?.destination
+        val currentScreen =
+            rallyTabRowScreens.find { it.route == currentDestination?.route } ?: Accounts
+
+
         Scaffold(
             topBar = {
                 RallyTabRow(
                     allScreens = rallyTabRowScreens,
-                    onTabSelected = { screen -> currentScreen = screen },
+                    onTabSelected = { navController.navigate(it.route) { launchSingleTop = true } },
                     currentScreen = currentScreen
                 )
             }
         ) { innerPadding ->
-            Box(Modifier.padding(innerPadding)) {
-                currentScreen.screen()
+            NavHost(
+                navController = navController,
+                startDestination = Overview.route,
+                Modifier.padding(innerPadding),
+            ) {
+                //this is last parameter which is a NavGraphBuilder which builds the NavGraph.
+                composable(route = Overview.route) {
+                    OverviewScreen(
+                        onClickSeeAllAccounts = {
+                            navController.navigate(Accounts.route) {
+                                launchSingleTop = true
+                            }
+                        },
+                        onClickSeeAllBills = {
+                            navController.navigate(
+                                Bills.route
+                            ) { launchSingleTop = true }
+                        },
+                    )
+                }
+                composable(route = Accounts.route) {
+                    AccountsScreen()
+                }
+                composable(route = Bills.route) {
+                    BillsScreen()
+                }
             }
         }
     }
