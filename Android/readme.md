@@ -1,3 +1,5 @@
+TODO
+
 Android project with detailed notes. Will cover various topics like:
 
 *  Architecture
