@@ -32,6 +32,8 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 #**************************        LIFECYCLE          ******************************
 #Lifecycle gives you access to lifecycle aware scope like lifecycleScope and repeatOnLifecycle which you can use in Activity/ Fragment to collect flows
@@ -71,17 +73,32 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 
 #**************************        COMPOSE          ******************************
 #The Bill of materials dependency. This maintains the version for various compose libraries and ensure
-#...that they are compatible.
+#...that they are compatible. Because of BOM file we dont have to specify dependencies of dependencies with androidx.compose.
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 
-
+#Foundation layer of jetpack compose Ui Toolkit. Gives you low level building blocks which contribute to
+#...various UI prestyled components like Button, Card, TextField, etc.
+#It gives you Row, Column, Layout, Modifier, Canvas, Painter, Icons, etc.
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+
+#Think of androidx.compose.ui as a painter which gives you canvas, painter etc.
+#ui-graphics are the tools to draw on the canvas. It gives you Color, Brush, ImageBitmap, etc.
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+
+
+#**************************        COMPOSE TOOLING         ******************************
+#Provides support for rendering preview in Android layout inspector
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+#Provides @Preview annotation itself.
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+#Tooling dependencies are included using debugImplementation because they are only required during debug
+#builds and are stripped during release builds
+
+
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
