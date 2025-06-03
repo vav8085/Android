@@ -29,13 +29,18 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 
 
 #**************************        TESTING          ******************************
+
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
+
 #**************************        LIFECYCLE          ******************************
+
+
 #Lifecycle gives you access to lifecycle aware scope like lifecycleScope and repeatOnLifecycle which you can use in Activity/ Fragment to collect flows
 #lifecycleScope is responsible for automatic coroutine cancellation when the lifecycle is destroyed. In a Fragment/ Activity viewLifecycleOwner.lifecycleScope.launch {}
 #repeatOnLifecycle launches a coroutine only when view is in specific state STARTED, coroutine is cancelled in STOPPED state and restarted
@@ -72,6 +77,8 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 
 
 #**************************        COMPOSE          ******************************
+
+
 #The Bill of materials dependency. This maintains the version for various compose libraries and ensure
 #...that they are compatible. Because of BOM file we dont have to specify dependencies of dependencies with androidx.compose.
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -85,12 +92,28 @@ androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 #ui-graphics are the tools to draw on the canvas. It gives you Color, Brush, ImageBitmap, etc.
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
-
+#Material3 implementation for jetpack compose. It provides Theming, Layouts and scaffold, buttons, cards, navigation,
+#...Textfield, radiobutton...etc
+#setContent {
+#   MaterialTheme {
+#       Surface(){}
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 
+#**************************        TRADITIONAL UI         ******************************
+
+
+#Material Library for traditional android UI xml views.
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+#Helps to use modern android features like Toolbar and material theming in older version of Android
+#...Provides AppCompatActivity which gives access to Actionbar/ Toolbar and night mode
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
 
 #**************************        COMPOSE TOOLING         ******************************
+
+
 #Provides support for rendering preview in Android layout inspector
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 #Provides @Preview annotation itself.
@@ -99,22 +122,50 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 #builds and are stripped during release builds
 
 
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+#**************************        COROUTINES         ******************************
+
+#Core library for coroutines and provides building blocks such as suspend, launch, async, CoroutineScope, Dispatchers etc.
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+
+#Normal test run synchronously while coroutines run async. This dependency provides tools to test coroutines.
+#...Provides method like delay(), runTest{} coroutine builder, runBlockingTest{}, TestDispatcher...
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+
+#Provides a bridge between core coroutine library which is platform agnostic with Android.
+#...Provides Dispatchers.Main and Dispatchers.Main.immediate which is default dispatcher for viewModelScope and lifecycleScope.
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
+
+#**************************        HILT         ******************************
+
+
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+
+#**************************        RETROFIT         ******************************
+
+
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "gsonConverter" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
-# Room
+
+
+#**************************        ROOM         ******************************
+
+
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+
+
+#**************************        NAVIGATION         ******************************
+
+
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
