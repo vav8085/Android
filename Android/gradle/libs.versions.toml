@@ -20,15 +20,61 @@ okhttp = "4.12.0"
 gsonConverter = "2.9.0"
 room = "2.7.1"
 navigation = "2.7.7"
+composeCompiler = "1.5.8"
+lifecycleViewModelCompose = "2.7.0"
+androidxLifecycle = "2.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+
+
+#**************************        TESTING          ******************************
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+#**************************        LIFECYCLE          ******************************
+#Lifecycle gives you access to lifecycle aware scope like lifecycleScope and repeatOnLifecycle which you can use in Activity/ Fragment to collect flows
+#lifecycleScope is responsible for automatic coroutine cancellation when the lifecycle is destroyed. In a Fragment/ Activity viewLifecycleOwner.lifecycleScope.launch {}
+#repeatOnLifecycle launches a coroutine only when view is in specific state STARTED, coroutine is cancelled in STOPPED state and restarted
+#...when view is back in STARTED state viewLifecycleOwner.lifecycleScope.launch {
+#            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+#                viewModel.someDataFlow.collect {
+#                    // Update the UI
+#                }
+# We usually use these to collect flows started from VM and point towards Activity/ Fragment.
+# Can also be used to trigger animations, show snackbar or scroll recyclerview to a position after some delay.
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+
+
+#This dependency gives us viewmodel scope so you can use it to call viewModelScope.launch{}
+#Usually used for network and database operations
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
+
+
+#This dependency gives us viewModel() method that we can call from a composable function. In compose we cannot create an instance of a VM directly
+#...because a viewmodel will get recreated during recomposition. This is where viewModel() comes handy. Its like a viewModel() singleton. It gives you
+#...an existing VM instance if it exists otherwise create a new instance for you.
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewModelCompose" }
+
+
+# Provides a bridge between compose and the android Activity. Used so our activity can use compose.
+#   provides you setContent() extension function for ComponentActivity.
+# also provides OnBackPressedDispatcher
+#setContent {
+#            MaterialTheme { // Applying your app's theme
+#                Greeting("Android")
+#            }
+#
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+
+
+#**************************        COMPOSE          ******************************
+#The Bill of materials dependency. This maintains the version for various compose libraries and ensure
+#...that they are compatible.
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+
+
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -40,6 +86,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
