@@ -16,7 +16,7 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ): ViewModel() {
 
-    private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Loading)
+    private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Default)
     val state = _state.asStateFlow()
 
     fun login(){
@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(
             }
             result.onFailure { value ->
                 _state.update {
-                    LoginUiState.Error(value.message.toString())
+                    LoginUiState.Default
                 }
             }
         }
