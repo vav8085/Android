@@ -11,39 +11,48 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.vav.android.navigation.AppDestinations
 import com.vav.android.ui.theme.AndroidTheme
+import com.vav.feature_login.ui.LoginScreen
 import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-@EntryPoint
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             AndroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavigation()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun AppNavigation() {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AndroidTheme {
-        Greeting("Android")
+    NavHost(navController = navController,
+        startDestination = AppDestinations.LOGIN_ROUTE) {
+
+        composable(AppDestinations.LOGIN_ROUTE) {
+            LoginScreen(navigateToStockList = {
+                navController.navigate(AppDestinations.STOCK_LIST_ROUTE){
+                    popUpTo(AppDestinations.LOGIN_ROUTE){
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            })
+        }
+
+        composable(AppDestinations.STOCK_LIST_ROUTE){
+
+        }
     }
 }
