@@ -44,6 +44,8 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":feature_login"))
+    implementation(project(":feature_stock_List"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
