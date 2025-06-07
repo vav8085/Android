@@ -4,7 +4,7 @@ Android Stocks App project.
 
 Architecture:
 
-App uses 3 different Architectures. This simulates an actual project which is partially written using Activities and Fragments and other part is upgraded to use Compose.
+App uses 3 different Architectures. This simulates an actual project which is partially written using Activities and Fragments using MVVM architecture and other part is upgraded to use Compose along with modern Clean + MVVM Architecture.
 
 Details:
 
@@ -14,6 +14,7 @@ Details:
     -  Cold Flows
     -  Jetpack Compose
     -  State Flow
+    -  Room offline cache
 
 2.  Stock Details Module use:
     -  Compose Navigation
@@ -21,6 +22,7 @@ Details:
     -  Coroutines
     -  Jetpack Compose
     -  State Flow
+    -  Room offline cache
 
 3.  Stock News and News Details modules are written in classical Android way using:
     -  Activities and Fragments
@@ -28,6 +30,7 @@ Details:
     -  RxJava
     -  Data binding
     -  Live Data/ State Flow
+    -  This will use an in memory cache using singleton repository
 
 All the 3 Modules share a single nav graph. Compose modules use their own child nav graph.
 
