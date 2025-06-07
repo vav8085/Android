@@ -1,20 +1,41 @@
-TODO
+In Progress...
 
 Android Stocks App project.
 
 Architecture:
 
-Modules for data, domain, app, navigation etc
+App uses 3 different Architectures. This simulates an actual project which is partially written using Activities and Fragments and other part is upgraded to use Compose.
 
-Compose Modules: feature_login, feature_stock_list, feature_stock_detail
+Details:
 
-Activity/ Fragment Modules: feature_stock_news, feature_news_detail
+1.  Login and Stock List modules use:
+    -  Compose Navigation
+    -  Hilt
+    -  Cold Flows
+    -  Jetpack Compose
+    -  State Flow
 
-Will cover various topics below as I practice more
+2.  Stock Details Module use:
+    -  Compose Navigation
+    -  Hilt 
+    -  Coroutines
+    -  Jetpack Compose
+    -  State Flow
 
-*  Architecture
-*  UI
-*  Android system design
-...
+3.  Stock News and News Details modules are written in classical Android way using:
+    -  Activities and Fragments
+    -  Hilt
+    -  RxJava
+    -  Data binding
+    -  Live Data/ State Flow
 
-The goal is to keep it concise
+All the 3 Modules share a single nav graph. Compose modules use their own child nav graph.
+
+* Other Modules include:
+    -  Data - Has Api implementations
+    -  Domain - Usecases and interactors
+    -  Navigation (TODO)
+    -  App
+    -  Core - Base classes and helpers (TODO)
+    -  Network - Network related helpers (TODO)
+
