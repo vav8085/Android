@@ -1,4 +1,4 @@
-package com.vav.domain.usecase.model
+package com.vav.domain.model
 
 data class StockItem(
     val id: String,

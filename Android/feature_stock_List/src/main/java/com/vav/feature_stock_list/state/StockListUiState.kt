@@ -1,6 +1,6 @@
 package com.vav.feature_stock_list.state
 
-import com.vav.domain.usecase.model.StockItem
+import com.vav.domain.model.StockItem
 
 sealed interface StockListUiState {
     object Loading: StockListUiState

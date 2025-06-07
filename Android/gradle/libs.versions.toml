@@ -25,6 +25,7 @@ composeCompiler = "1.5.8"
 lifecycleViewModelCompose = "2.7.0"
 androidxLifecycle = "2.7.0"
 navigationComposeJvmstubs = "2.9.0"
+javaxInject = "1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -145,6 +146,9 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 #This is to call hiltViewModel() in the compose screens and get viewmodel reference
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+#For @Inject in domain module because its a kotlin module and cannot use hilt-android
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 
 
 
