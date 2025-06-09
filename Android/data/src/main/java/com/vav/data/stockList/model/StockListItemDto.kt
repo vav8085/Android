@@ -1,7 +1,6 @@
-package com.vav.domain.model
+package com.vav.data.stockList.model
 
-data class StockItem(
-    val id: String,
+data class StockListItemDto(
     val symbol: String,
     val companyName: String,
     val currentPrice: Double,

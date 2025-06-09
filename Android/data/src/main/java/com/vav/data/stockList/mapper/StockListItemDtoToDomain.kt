@@ -1,11 +1,11 @@
-package com.vav.data.mapper
+package com.vav.data.stockList.mapper
 
-import com.vav.data.model.StockItemDto
-import com.vav.domain.model.StockItem
+import com.vav.data.stockList.model.StockListItemDto
+import com.vav.domain.stockList.model.StockListItem
 import java.util.UUID
 
-fun StockItemDto.toDomain(): StockItem {
-    return StockItem(
+fun StockListItemDto.toDomain(): StockListItem {
+    return StockListItem(
         id = UUID.randomUUID().toString(),
         symbol = this.symbol,
         companyName = this.companyName,
@@ -16,4 +16,4 @@ fun StockItemDto.toDomain(): StockItem {
     )
 }
 
-fun List<StockItemDto>.toDomain() = this.map { it.toDomain() }
+fun List<StockListItemDto>.toDomain() = this.map { it.toDomain() }

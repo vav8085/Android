@@ -2,7 +2,7 @@ package com.vav.feature_login.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vav.domain.usecase.LoginUseCase
+import com.vav.domain.login.LoginUseCase
 import com.vav.feature_login.state.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

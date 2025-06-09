@@ -1,15 +1,15 @@
-package com.vav.data.datasource.impl
+package com.vav.data.stockList.datasource.impl
 
-import com.vav.data.datasource.StockRemoteDataSource
-import com.vav.data.model.StockItemDto
+import com.vav.data.stockList.datasource.StockListRemoteDataSource
+import com.vav.data.stockList.model.StockListItemDto
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 
-class StockRemoteDataSourceImpl : StockRemoteDataSource {
-    override fun getStockData(): Flow<List<StockItemDto>> {
+class StockListListRemoteDataSourceImpl : StockListRemoteDataSource {
+    override fun getStockData(): Flow<List<StockListItemDto>> {
         return flow {
             delay(1000.milliseconds)
 
@@ -22,7 +22,7 @@ class StockRemoteDataSourceImpl : StockRemoteDataSource {
         }
     }
 
-    fun generateStockData(): List<StockItemDto> {
+    fun generateStockData(): List<StockListItemDto> {
         val symbolsToName = listOf<Pair<String, String>>(
             "APPL" to "Apple",
             "GOOGL" to "Google",
@@ -40,7 +40,7 @@ class StockRemoteDataSourceImpl : StockRemoteDataSource {
             val change = Random.nextDouble(-0.5, 0.5)
             val changePercent = change / price
 
-            StockItemDto(
+            StockListItemDto(
                 symbol = symbol,
                 companyName = name,
                 currentPrice = price,
