@@ -5,10 +5,11 @@ import com.vav.data.stockList.model.StockListItemDto
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 
-class StockListListRemoteDataSourceImpl : StockListRemoteDataSource {
+class StockListListRemoteDataSourceImpl @Inject constructor() : StockListRemoteDataSource {
     override fun getStockData(): Flow<List<StockListItemDto>> {
         return flow {
             delay(1000.milliseconds)

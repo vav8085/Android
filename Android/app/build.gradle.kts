@@ -43,6 +43,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":data"))
     implementation(project(":feature_login"))
     implementation(project(":feature_stock_List"))
 
@@ -59,7 +60,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     implementation(libs.hilt.android)
-    implementation(libs.androidx.navigation.compose.jvmstubs)
+    implementation(libs.androidx.navigation.compose)
     kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)

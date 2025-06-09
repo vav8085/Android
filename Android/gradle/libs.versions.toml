@@ -24,7 +24,7 @@ navigation = "2.7.7"
 composeCompiler = "1.5.8"
 lifecycleViewModelCompose = "2.7.0"
 androidxLifecycle = "2.7.0"
-navigationComposeJvmstubs = "2.9.0"
+navigationCompose = "2.9.0"
 javaxInject = "1"
 
 [libraries]
@@ -173,7 +173,7 @@ androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = 
 
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
-androidx-navigation-compose-jvmstubs = { group = "androidx.navigation", name = "navigation-compose-jvmstubs", version.ref = "navigationComposeJvmstubs" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 
 
