@@ -9,7 +9,11 @@ import kotlin.time.Duration.Companion.milliseconds
 class LoginDataSourceImpl @Inject constructor() : LoginDataSource {
     override fun login(username: String, password: String) = flow {
         delay(3000.milliseconds)
-        emit("Token")
+        if(username == "username" && password == "password") {
+            emit("Token")
+        }else{
+            throw IllegalArgumentException("Incorrect credentials!")
+        }
     }
 
     override fun logout() = flow {

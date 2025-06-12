@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -46,10 +47,17 @@ fun LoginScreen(
 
 @Composable
 fun UI(uiState: LoginUiState, login: (String, String) -> Unit) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var accessKey by remember { mutableStateOf("") }
-    val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(uiState) {
+        if(uiState is LoginUiState.Error){
+            password = ""
+        }
+    }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -64,25 +72,27 @@ fun UI(uiState: LoginUiState, login: (String, String) -> Unit) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = username,
-                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
+                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default,
                 onValueChange = { newUsername -> username = newUsername },
                 label = { Text("User Name") })
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
+                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default,
                 value = password,
                 onValueChange = { newPassword -> password = newPassword },
-                label = { Text("Password") })
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
-                value = accessKey,
-                onValueChange = { newAccessKey -> accessKey = newAccessKey },
-                label = { Text("Access Key") })
+                label = { Text("Password") },
+                visualTransformation = PasswordVisualTransformation())
+//            OutlinedTextField(
+//                modifier = Modifier.fillMaxWidth(),
+//                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default,
+//                value = accessKey,
+//                onValueChange = { newAccessKey -> accessKey = newAccessKey },
+//                label = { Text("Access Key") })
             Spacer(modifier = Modifier.padding(top = 10.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
+                enabled = (username.isNotBlank() && password.isNotBlank())
+                        && (uiState is LoginUiState.Error || uiState is LoginUiState.Default),
                 onClick = {
                     keyboardController?.hide()
                     login(username, password)
@@ -93,6 +103,8 @@ fun UI(uiState: LoginUiState, login: (String, String) -> Unit) {
                     Text("Sign In!")
                 }
             }
+            if (uiState is LoginUiState.Error)
+                Text(modifier = Modifier.fillMaxWidth(), text = uiState.message, color = Color.Red)
         }
     }
 }
