@@ -15,15 +15,15 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val logoutUseCase: LogoutUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Default)
     val state = _state.asStateFlow()
 
-    fun login() {
+    fun login(newUsername: String, newPassword: String) {
         viewModelScope.launch {
-            loginUseCase.invoke("username", "password").collect { result ->
+            _state.update { LoginUiState.Loading }
+            loginUseCase.invoke(newUsername, newPassword).collect { result ->
                 result.onSuccess { value ->
                     _state.update {
                         LoginUiState.Success
@@ -31,18 +31,8 @@ class LoginViewModel @Inject constructor(
                 }
                 result.onFailure { value ->
                     _state.update {
-                        LoginUiState.Default
+                        LoginUiState.Error(value.message.toString())
                     }
-                }
-            }
-        }
-    }
-
-    fun logout(){
-        viewModelScope.launch {
-            logoutUseCase.invoke().collect { result ->
-                result.onSuccess {
-                    //ToDo Logout
                 }
             }
         }

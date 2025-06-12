@@ -33,7 +33,7 @@ import com.vav.feature_login.viewModel.LoginViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel<LoginViewModel>(),
-    navigateToStockList: () -> Unit
+    navigateToStockList: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsState()
     LaunchedEffect(uiState) {
@@ -41,11 +41,11 @@ fun LoginScreen(
             navigateToStockList()
         }
     }
-    UI(uiState, navigateToStockList)
+    UI(uiState, viewModel::login)
 }
 
 @Composable
-fun UI(uiState: LoginUiState, navigateToStockList: () -> Unit) {
+fun UI(uiState: LoginUiState, login: (String, String) -> Unit) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var accessKey by remember { mutableStateOf("") }
@@ -64,28 +64,28 @@ fun UI(uiState: LoginUiState, navigateToStockList: () -> Unit) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = username,
-                enabled = uiState is LoginUiState.Error,
+                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
                 onValueChange = { newUsername -> username = newUsername },
-                label = { Text("UserName") })
+                label = { Text("User Name") })
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                enabled = uiState is LoginUiState.Error,
+                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
                 value = password,
                 onValueChange = { newPassword -> password = newPassword },
                 label = { Text("Password") })
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                enabled = uiState is LoginUiState.Error,
+                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
                 value = accessKey,
                 onValueChange = { newAccessKey -> accessKey = newAccessKey },
                 label = { Text("Access Key") })
             Spacer(modifier = Modifier.padding(top = 10.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                enabled = uiState is LoginUiState.Error,
+                enabled = uiState is LoginUiState.Error || uiState is LoginUiState.Default ,
                 onClick = {
                     keyboardController?.hide()
-                    navigateToStockList()
+                    login(username, password)
                 }) {
                 if (uiState is LoginUiState.Loading) {
                     CircularProgressIndicator(color = Color.White)
@@ -101,7 +101,7 @@ fun UI(uiState: LoginUiState, navigateToStockList: () -> Unit) {
 @Composable
 fun LoginErrorScreenPreview() {
     MaterialTheme {
-        UI(LoginUiState.Error("Error")) {}
+        UI(uiState = LoginUiState.Error("Error")) { userName, password -> }
     }
 }
 
@@ -109,7 +109,7 @@ fun LoginErrorScreenPreview() {
 @Composable
 fun LoginDefaultScreenPreview() {
     MaterialTheme {
-        UI(LoginUiState.Default) {}
+        UI(LoginUiState.Default) { userName, password -> }
     }
 }
 
@@ -117,7 +117,7 @@ fun LoginDefaultScreenPreview() {
 @Composable
 fun LoginSuccessScreenPreview() {
     MaterialTheme {
-        UI(LoginUiState.Success) {}
+        UI(LoginUiState.Success) { userName, password -> }
     }
 }
 
@@ -125,6 +125,6 @@ fun LoginSuccessScreenPreview() {
 @Composable
 fun LoginLoadingScreenPreview() {
     MaterialTheme {
-        UI(LoginUiState.Loading) {}
+        UI(LoginUiState.Loading) { userName, password -> }
     }
 }
