@@ -12,7 +12,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class StockListListRemoteDataSourceImpl @Inject constructor() : StockListRemoteDataSource {
     override fun getStockData(): Flow<List<StockListItemDto>> {
         return flow {
-            delay(1000.milliseconds)
+            delay(3000.milliseconds)
 
             val data = generateStockData()
 

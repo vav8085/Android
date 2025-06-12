@@ -4,6 +4,6 @@ import com.vav.domain.stockList.model.StockListItem
 
 sealed interface StockListUiState {
     object Loading: StockListUiState
-    data class Success(val stockListItem: List<StockListItem>): StockListUiState
+    data class Success(val stockListItems: List<StockListItem>): StockListUiState
     data class Error(val message: String): StockListUiState
 }

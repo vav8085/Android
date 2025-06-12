@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.vav.android.navigation.AppDestinations
 import com.vav.android.ui.theme.AndroidTheme
 import com.vav.feature_login.ui.LoginScreen
+import com.vav.feature_stock_list.ui.StockListScreen
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +53,7 @@ fun AppNavigation() {
         }
 
         composable(AppDestinations.STOCK_LIST_ROUTE){
-
+            StockListScreen(backNav = {}, stockDetailNav = {})
         }
     }
 }
